@@ -1,0 +1,79 @@
+# DigitalOcean App Platform Configuration
+name: social-wallet-api
+
+services:
+- name: api
+  source_dir: /
+  github:
+    repo: YOUR_GITHUB_USERNAME/social-wallet-api  # ⚠️ CHANGE THIS!
+    branch: main
+    deploy_on_push: true
+  
+  run_command: npm start
+  build_command: npm install && npm run build
+  
+  environment_slug: node-js
+  instance_count: 1
+  instance_size_slug: basic-xxs  # Start small, can scale up
+  
+  http_port: 3000
+  
+  health_check:
+    http_path: /health
+    initial_delay_seconds: 30
+    period_seconds: 10
+    timeout_seconds: 5
+    success_threshold: 1
+    failure_threshold: 3
+  
+  env:
+  - key: NODE_ENV
+    value: production
+  - key: PORT
+    value: "3000"
+  - key: JWT_SECRET
+    type: SECRET
+    value: "your-super-secure-jwt-secret-change-this"
+  - key: REFRESH_TOKEN_SECRET
+    type: SECRET
+    value: "your-refresh-token-secret-change-this"
+  - key: ADMIN_SECRET_KEY
+    type: SECRET
+    value: "your-admin-secret-key-change-this"
+  - key: ALLOWED_ORIGINS
+    value: "https://socialwallet.com,https://app.socialwallet.com"
+  - key: FRONTEND_URL
+    value: "https://app.socialwallet.com"
+  - key: STRIPE_SECRET_KEY
+    type: SECRET
+    value: "sk_test_your_stripe_secret_key"
+  - key: STRIPE_PUBLISHABLE_KEY
+    value: "pk_test_your_stripe_publishable_key"
+  - key: STRIPE_WEBHOOK_SECRET
+    type: SECRET
+    value: "whsec_your_webhook_secret"
+  - key: DATABASE_URL
+    scope: RUN_TIME
+    from_database:
+      name: social-wallet-db
+      property: connectionString
+  - key: REDIS_URL
+    scope: RUN_TIME
+    from_database:
+      name: social-wallet-redis
+      property: connectionString
+
+databases:
+- name: social-wallet-db
+  engine: PG
+  version: "14"
+  size: basic
+  num_nodes: 1
+  production: false  # Set to true for production
+
+- name: social-wallet-redis
+  engine: REDIS
+  version: "7"
+  size: basic
+  num_nodes: 1
+  production: false  # Set to true for production
