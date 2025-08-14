@@ -9,8 +9,8 @@ services:
     branch: main
     deploy_on_push: true
   
-  run_command: npm start
-  build_command: npm install && npm run build
+  run_command: node app.js
+  build_command: npm install
   
   environment_slug: node-js
   instance_count: 1
