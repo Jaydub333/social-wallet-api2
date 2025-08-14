@@ -1,14 +1,13 @@
 {
   "name": "social-wallet-api",
   "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "build": "echo 'No build step needed'",
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2"
+    "start": "node index.js",
+    "dev": "node index.js",
+    "build": "echo 'No build needed - pure Node.js'"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=14.0.0"
   }
 }
