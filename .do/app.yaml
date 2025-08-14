@@ -10,7 +10,6 @@ services:
     deploy_on_push: true
   
   run_command: node app.js
-  build_command: npm install --only=production
   
   environment_slug: node-js
   instance_count: 1
