@@ -7,7 +7,7 @@ console.log('PORT from environment:', process.env.PORT);
 console.log('Using port:', port);
 
 app.get('/', (req, res) => {
-  res.send('Social Wallet API is working! 🚀');
+  res.send('🚀 Social Wallet API is LIVE and working perfectly!');
 });
 
 app.get('/health', (req, res) => {
